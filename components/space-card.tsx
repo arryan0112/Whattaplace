@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { MapPin, IndianRupee } from 'lucide-react'
@@ -16,15 +16,16 @@ export function SpaceCard({ space, onClick }: SpaceCardProps) {
   return (
     <Card
       onClick={() => onClick(space)}
-      className="cursor-pointer hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
+      className="cursor-pointer hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col group"
     >
       {/* Image */}
-      <div className="h-40 w-full overflow-hidden rounded-t-lg flex-shrink-0">
+      <div className="h-48 w-full overflow-hidden rounded-t-lg flex-shrink-0 relative">
         <img
           src={space.imageUrl || '/placeholder.svg'}
           alt={space.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-500" />
       </div>
 
       {/* Content */}
@@ -49,7 +50,7 @@ export function SpaceCard({ space, onClick }: SpaceCardProps) {
         </div>
 
         {/* Scrollable description */}
-        <div className="text-muted-foreground text-xs leading-snug flex-1 overflow-y-auto min-h-0">
+        <div className="text-muted-foreground text-xs leading-snug flex-1 overflow-y-auto min-h-0 pr-1">
           {space.description || 'No description available for this space.'}
         </div>
 

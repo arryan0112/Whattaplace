@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, MapPin, Activity, IndianRupee, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,6 +19,11 @@ interface SearchFiltersProps {
 export function SearchFilters({ filters, onFiltersChange, onSearch }: SearchFiltersProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
+
+  useEffect(() => {
+    // Live search: run on every query change
+    onSearch(searchQuery)
+  }, [searchQuery])
 
   const handleLocationChange = (location: string) => onFiltersChange({ ...filters, location })
   const handleActivityChange = (activity: string) => onFiltersChange({ ...filters, activity })
