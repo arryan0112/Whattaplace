@@ -30,25 +30,17 @@ export function GoogleMap({ space, className = "" }: GoogleMapProps) {
   const coordinates = cityCoordinates[space.location] || cityCoordinates.Delhi
 
   useEffect(() => {
-    // Mock Google Maps integration
-    // In a real implementation, you would load the Google Maps JavaScript API
-    const timer = setTimeout(() => {
-      setIsLoaded(true)
-    }, 1000)
-
+    // Simulate map loading
+    const timer = setTimeout(() => setIsLoaded(true), 1000)
     return () => clearTimeout(timer)
   }, [])
 
   const handleGetDirections = () => {
-    // Open Google Maps with directions
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${coordinates.lat},${coordinates.lng}`
-    window.open(url, "_blank")
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${coordinates.lat},${coordinates.lng}`, "_blank")
   }
 
   const handleViewOnMaps = () => {
-    // Open Google Maps at the location
-    const url = `https://www.google.com/maps/search/?api=1&query=${coordinates.lat},${coordinates.lng}`
-    window.open(url, "_blank")
+    window.open(`https://www.google.com/maps/search/?api=1&query=${coordinates.lat},${coordinates.lng}`, "_blank")
   }
 
   if (error) {
@@ -65,6 +57,7 @@ export function GoogleMap({ space, className = "" }: GoogleMapProps) {
 
   return (
     <div className={`relative ${className}`}>
+      {/* Map Container */}
       <div ref={mapRef} className="w-full h-64 bg-gray-100 rounded-lg overflow-hidden relative">
         {!isLoaded ? (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -74,15 +67,13 @@ export function GoogleMap({ space, className = "" }: GoogleMapProps) {
             </div>
           </div>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 mx-auto mb-2 text-blue-600" />
-              <p className="font-semibold text-gray-800">{space.name}</p>
-              <p className="text-sm text-gray-600">{space.location}</p>
-              <p className="text-xs text-gray-500 mt-1">
-                {coordinates.lat.toFixed(4)}, {coordinates.lng.toFixed(4)}
-              </p>
-            </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-green-100 flex flex-col items-center justify-center">
+            <MapPin className="w-12 h-12 text-blue-600 mb-2" />
+            <p className="font-semibold text-gray-800">{space.name}</p>
+            <p className="text-sm text-gray-600">{space.location}</p>
+            <p className="text-xs text-gray-500 mt-1">
+              {coordinates.lat.toFixed(4)}, {coordinates.lng.toFixed(4)}
+            </p>
           </div>
         )}
 
@@ -110,9 +101,9 @@ export function GoogleMap({ space, className = "" }: GoogleMapProps) {
       </div>
 
       {/* Location Details */}
-      <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+      <div className="mt-3 p-3 bg-gray-50 rounded-lg text-xs text-gray-600">
         <h4 className="font-medium text-sm mb-1">Location Details</h4>
-        <p className="text-xs text-gray-600">
+        <p>
           This space is located in {space.location}, easily accessible by public transport and private vehicles.
           {space.facilities.parking && " Parking is available on-site."}
         </p>

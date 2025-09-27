@@ -19,15 +19,20 @@ export function CategoryIcons() {
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-4 md:gap-6 lg:gap-8">
           {categories.map((category, index) => {
             const IconComponent = category.icon
+            const staggerDelay = `${index * 100}ms` // dynamic stagger
+
             return (
               <div
                 key={category.name}
-                className={`flex flex-col items-center space-y-2 md:space-y-3 cursor-pointer group hover-lift animate-scale-in animate-stagger-${Math.min(index + 1, 4)}`}
+                className="flex flex-col items-center space-y-2 md:space-y-3 cursor-pointer group hover-lift"
+                style={{ animationDelay: staggerDelay }}
+                aria-label={category.name}
+                title={category.name}
               >
                 <div
                   className={`p-3 md:p-4 rounded-full bg-gray-50 group-hover:bg-gray-100 group-hover:scale-110 transition-all duration-300 ${category.color}`}
                 >
-                  <IconComponent size={24} className="md:w-8 md:h-8" />
+                  <IconComponent className="w-6 h-6 md:w-8 md:h-8" />
                 </div>
                 <span className="text-xs md:text-sm font-medium text-foreground text-center leading-tight group-hover:text-primary transition-colors duration-300">
                   {category.name}
